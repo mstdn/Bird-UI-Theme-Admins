@@ -1,5 +1,5 @@
 /* Mastodon Bird UI by @rolle@mementomori.social
-   1.5.7 */
+   1.5.8 */
 
 /* CSS variables */
 :root {
@@ -51,6 +51,10 @@
   --color-ghost-button-text: var(--color-button-text);
   --color-verified: #79bd9a;
   --color-destructive: #df405a;
+  --color-light-fuchsia-pink: #ff8cfd;
+  --color-hashtag: var(--color-accent);
+  --color-mention: var(--color-accent);
+  --color-link: var(--color-accent);
 
   /* In the original UI this color is lighten($ui-base-color, 12%) */
   --color-outer-space: #42485a;
@@ -59,10 +63,13 @@
   --font-stack: system-ui, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, Inter, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-size: 15px;
   --font-size-smaller: 13px;
+  --font-size-12: 12px;
   --font-size-mid: 14px;
   --font-size-bigger: 17px;
   --font-size-heading: 20px;
   --font-weight-bold: 700;
+  --line-height: 22px;
+  --line-height-mid: 20px;
 
   /* Grids and gaps */
   --gap-default: 12px;
@@ -74,11 +81,17 @@
   --width-main-panel: 600px;
   --width-side-panel: 260px;
   --width-column: 380px;
+  --border-radius: 16px;
+  --border-radius-badges: 4px;
+  --badges-distance-from-edge: 12px;
 
   /* Misc */
   --active-header-box-shadow: 0 1px 0 rgba(140, 141, 255, .3);
   --active-header-radial-gradient: radial-gradient(ellipse, rgba(99, 100, 255, .23) 0, rgba(99, 100, 255, 0) 60%);
   --compose-form-linear-gradient: linear-gradient(180deg, rgba(30, 32, 40, 1) 0%, rgba(30, 32, 40, 1) 53%, rgba(30, 32, 40, 0.8141631652661064) 76%, rgba(30, 32, 40, 0.7077205882352942) 87%, rgba(30, 32, 40, 0.458420868347339) 97%, rgba(30, 32, 40, 0) 100%);
+
+  /* Logo */
+  --logo: url('data:image/svg+xml, %3Csvg class="mastodon-logo" xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 216.4144 232.00976"%3E%3Cdefs xmlns="http://www.w3.org/2000/svg"%3E%3ClinearGradient xmlns="http://www.w3.org/2000/svg" id="gradient" x2="0%25" y2="100%25" gradientUnits="userSpaceOnUse"%3E%3Cstop offset="0%25" stop-color="%23595aff"%3E%3C/stop%3E%3Cstop offset="100%25" stop-color="%23595aff"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath xmlns="http://www.w3.org/2000/svg" d="M211.80734 139.0875c-3.18125 16.36625-28.4925 34.2775-57.5625 37.74875-15.15875 1.80875-30.08375 3.47125-45.99875 2.74125-26.0275-1.1925-46.565-6.2125-46.565-6.2125 0 2.53375.15625 4.94625.46875 7.2025 3.38375 25.68625 25.47 27.225 46.39125 27.9425 21.11625.7225 39.91875-5.20625 39.91875-5.20625l.8675 19.09s-14.77 7.93125-41.08125 9.39c-14.50875.7975-32.52375-.365-53.50625-5.91875C9.23234 213.82 1.40609 165.31125.20859 116.09125c-.365-14.61375-.14-28.39375-.14-39.91875 0-50.33 32.97625-65.0825 32.97625-65.0825C49.67234 3.45375 78.20359.2425 107.86484 0h.72875c29.66125.2425 58.21125 3.45375 74.8375 11.09 0 0 32.975 14.7525 32.975 65.0825 0 0 .41375 37.13375-4.59875 62.915" fill="url(%23gradient)"%3E%3C/path%3E%3Cpath d="M177.50984 80.077v60.94125h-24.14375v-59.15c0-12.46875-5.24625-18.7975-15.74-18.7975-11.6025 0-17.4175 7.5075-17.4175 22.3525v32.37625H96.20734V85.42325c0-14.845-5.81625-22.3525-17.41875-22.3525-10.49375 0-15.74 6.32875-15.74 18.7975v59.15H38.90484V80.077c0-12.455 3.17125-22.3525 9.54125-29.675 6.56875-7.3225 15.17125-11.07625 25.85-11.07625 12.355 0 21.71125 4.74875 27.8975 14.2475l6.01375 10.08125 6.015-10.08125c6.185-9.49875 15.54125-14.2475 27.8975-14.2475 10.6775 0 19.28 3.75375 25.85 11.07625 6.36875 7.3225 9.54 17.22 9.54 29.675" fill="%23fff"%3E%3C/path%3E%3C/svg%3E');
 
   /* Icons */
   --icon-follow-hashtag: url('data:image/svg+xml, %3Csvg version="1.0" xmlns="http://www.w3.org/2000/svg" width="18px" height="auto" viewBox="0 0 462 439"%3E%3Cpath fill="%23717c9b" d="M139 11.7c-3.5 2.5-6.2 5.4-7.7 8.3-2.5 4.8-2.5 5.2-7.8 52.5-1.4 12.6-3.5 31.4-4.7 41.7l-2.1 18.7-48.6.3-48.6.3-5 3.1C7.2 141.1 3 148.4 3 156.7c0 4.4.6 7.6 2 10.2 2.7 5.4 10.1 11.6 15.5 13 2.9.7 19.2 1.1 47.8 1.1 40.9 0 43.5.1 43.1 1.7-.4 1.9-8.4 73.2-8.4 75.2 0 .8-11.4 1.1-41 1.1H20.9l-4.8 2.5C7.5 265.8 3 273 3 282.5s4.5 16.7 13.1 21l4.8 2.5H97.6l-5.3 46.7c-2.9 25.8-5.4 50.3-5.5 54.5-.1 7 .2 8.2 2.8 12.5 1.7 2.7 5.1 6.2 7.8 8 4.5 3.1 5.4 3.3 13 3.3 8.9 0 10.2-.5 16.8-6.8 4.8-4.6 6.3-9.3 8.2-26.7.9-7.7 2.7-23.9 4-36 1.4-12.1 3.3-29.5 4.3-38.8l1.7-16.7H214.7l.5-8.3c.7-9.8 1.4-11.5 8.2-18.5 8.6-9 7-8.7 41.4-9l30.2-.3V259h-9.5c-9.4 0-9.5 0-9.1-2.3.3-1.2 1.5-10.8 2.6-21.2 1.2-10.5 3-26.5 4.1-35.7 1-9.2 1.9-17.2 1.9-17.8 0-.7 12.3-1 38.5-1 23.5 0 40.3-.4 43.4-1.1 6.1-1.3 13.5-7.4 16.2-13.4 5.2-11.4.2-24.9-11.5-30.9l-4.9-2.6H290.4l5.3-46.8c5.3-47.1 6.1-59 4.3-63.6-1.4-3.7-7.9-10.5-12.1-12.7C285.2 8.6 282 8 277.2 8c-6.2 0-7.5.4-11.8 3.2-9.2 6.2-10.1 8.6-12.9 31.8-3.4 28.9-7.2 63.4-8.7 77.7l-1.2 12.3h-77.8l.6-4.3c.3-2.3.8-7.1 1.1-10.7.6-6.1 2.5-23.4 7.6-68 1.2-10.8 1.9-21.1 1.6-23.1-1.1-5.5-6.2-12.6-11.4-15.9-4.2-2.7-5.6-3-12.3-3-7.2 0-8 .2-13 3.7zm97.5 174.5c-.4 2.9-1.5 12.9-2.5 22.3-1.1 9.3-2.7 24.5-3.7 33.7l-1.7 16.8H150.9l.6-6.3c.3-3.4 1.7-15.7 3-27.2 1.3-11.6 2.9-26.3 3.6-32.8l1.2-11.7H237l-.5 5.2z"/%3E%3Cpath fill="%23717c9b" d="M317.2 207c-1.8 1.1-4.1 3.4-5.2 5.2-1.9 3.1-2 5.1-2 38V285h-34.7c-33 0-35 .1-38.1 2-6.7 4.1-7.2 6-7.2 30s.5 25.9 7.2 30c3.1 1.9 5.1 2 38.1 2H310v34.7c0 33 .1 35 2 38.1 4.1 6.7 6 7.2 30 7.2s25.9-.5 30-7.2c1.9-3.1 2-5.1 2-38.1V349h34.8c32.9 0 34.9-.1 38-2 6.7-4.1 7.2-6 7.2-30s-.5-25.9-7.2-30c-3.1-1.9-5.1-2-38-2H374v-34.8c0-32.9-.1-34.9-2-38-4.1-6.7-6-7.2-30-7.2-19.7 0-21.8.2-24.8 2z"/%3E%3Cpath fill="%23717c9b" d="M217.2 359.7c-5 43.2-5.5 50-4.2 54.7 1.5 5.4 7.5 12.7 12.4 15 5.2 2.4 17.1 2.2 21.6-.5 8.9-5.3 12.3-11.7 13.4-25.4.9-10.2 3.5-33.2 4.2-36.6l.5-2.7-15.3-.4c-10.1-.2-16.1-.8-17.8-1.7-1.4-.7-5-3.8-8.1-6.8l-5.6-5.4-1.1 9.8z"/%3E%3C/svg%3E');
@@ -138,6 +151,7 @@
   --icon-hashtag-active: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23f7f9f9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hash"%3E%3Cline x1="4" y1="9" x2="20" y2="9"%3E%3C/line%3E%3Cline x1="4" y1="15" x2="20" y2="15"%3E%3C/line%3E%3Cline x1="10" y1="3" x2="8" y2="21"%3E%3C/line%3E%3Cline x1="16" y1="3" x2="14" y2="21"%3E%3C/line%3E%3C/svg%3E');
   --icon-star: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="%23717c9b" stroke-width="5.5" viewBox="0 0 68 68"%3E%3Cpath d="M31.4 3.8c-.7.4-2.5 5-4.1 10.2l-2.9 9.5-9.9.5c-5.5.3-10.6.9-11.3 1.3-.6.5-1.2 1.9-1.2 3.3 0 2 1.5 3.4 8 7.5 4.4 2.8 8 5.5 8 6s-1.3 4.5-3 9.1c-3.6 9.7-3.7 11.4-.9 12.8 2.7 1.5 3.5 1.1 12.4-5.6l7.5-5.6 8.2 6.1c8.4 6.3 11.2 7.1 13.2 3.9.8-1.4.3-3.9-2.2-11-1.8-5.1-3.2-9.6-3.2-9.9 0-.4 3.6-3 8-5.8 6.5-4.1 8-5.5 8-7.5 0-1.4-.6-2.8-1.2-3.3-.7-.4-5.8-1-11.3-1.3l-9.9-.5-2.9-9.5C37.8 4.6 36.9 3 34 3c-.8 0-2 .4-2.6.8z"/%3E%3C/svg%3E%0A');
   --icon-star-hover: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="%23ffac33" stroke-width="5.5" viewBox="0 0 68 68"%3E%3Cpath d="M31.4 3.8c-.7.4-2.5 5-4.1 10.2l-2.9 9.5-9.9.5c-5.5.3-10.6.9-11.3 1.3-.6.5-1.2 1.9-1.2 3.3 0 2 1.5 3.4 8 7.5 4.4 2.8 8 5.5 8 6s-1.3 4.5-3 9.1c-3.6 9.7-3.7 11.4-.9 12.8 2.7 1.5 3.5 1.1 12.4-5.6l7.5-5.6 8.2 6.1c8.4 6.3 11.2 7.1 13.2 3.9.8-1.4.3-3.9-2.2-11-1.8-5.1-3.2-9.6-3.2-9.9 0-.4 3.6-3 8-5.8 6.5-4.1 8-5.5 8-7.5 0-1.4-.6-2.8-1.2-3.3-.7-.4-5.8-1-11.3-1.3l-9.9-.5-2.9-9.5C37.8 4.6 36.9 3 34 3c-.8 0-2 .4-2.6.8z"/%3E%3C/svg%3E%0A');
+  --icon-search: url("data:image/svg+xml;charset=utf-8, %3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23535C76' aria-hidden='true' viewBox='0 0 24 24'%3E%3Cpath d='M10.25 3.75a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm-8.5 6.5a8.5 8.5 0 1 1 15.176 5.262l4.781 4.781-1.414 1.414-4.781-4.781A8.5 8.5 0 0 1 1.75 10.25z'/%3E%3C/svg%3E");
 }
 
 /* High Contrast theme */
@@ -184,6 +198,7 @@ body.theme-elephant-light.layout-multiple-columns {
   --color-dark-electric-blue: #9088a6;
   --color-bg-75: #ffffffbf;
   --color-accent: var(--color-accent-dark);
+  --color-accent-dark-50: #595aff80;
   --color-ghost-button-text: var(--color-accent-dark);
 
   /* Misc */
@@ -239,6 +254,7 @@ body.theme-elephant-light.layout-multiple-columns {
   --icon-home-column-link-active: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" class="ionicon" fill="%231f1b23" width="24" height="24" viewBox="0 0 512 512"%3E%3Ctitle%3EHome%3C/title%3E%3Cpath d="M261.56 101.28a8 8 0 00-11.06 0L66.4 277.15a8 8 0 00-2.47 5.79L63.9 448a32 32 0 0032 32H192a16 16 0 0016-16V328a8 8 0 018-8h80a8 8 0 018 8v136a16 16 0 0016 16h96.06a32 32 0 0032-32V282.94a8 8 0 00-2.47-5.79z"/%3E%3Cpath d="M490.91 244.15l-74.8-71.56V64a16 16 0 00-16-16h-48a16 16 0 00-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0043 267.56L250.5 69.28a8 8 0 0111.06 0l207.52 198.28a16 16 0 0022.59-.44c6.14-6.36 5.63-16.86-.76-22.97z"/%3E%3C/svg%3E');
   --icon-hashtag: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%231f1b23" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hash"%3E%3Cline x1="4" y1="9" x2="20" y2="9"%3E%3C/line%3E%3Cline x1="4" y1="15" x2="20" y2="15"%3E%3C/line%3E%3Cline x1="10" y1="3" x2="8" y2="21"%3E%3C/line%3E%3Cline x1="16" y1="3" x2="14" y2="21"%3E%3C/line%3E%3C/svg%3E');
   --icon-hashtag-active: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%231f1b23" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hash"%3E%3Cline x1="4" y1="9" x2="20" y2="9"%3E%3C/line%3E%3Cline x1="4" y1="15" x2="20" y2="15"%3E%3C/line%3E%3Cline x1="10" y1="3" x2="8" y2="21"%3E%3C/line%3E%3Cline x1="16" y1="3" x2="14" y2="21"%3E%3C/line%3E%3C/svg%3E');
+  --icon-search: url("data:image/svg+xml;charset=utf-8, %3Csvg xmlns='http://www.w3.org/2000/svg' fill='%239FA4BB' aria-hidden='true' viewBox='0 0 24 24'%3E%3Cpath d='M10.25 3.75a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm-8.5 6.5a8.5 8.5 0 1 1 15.176 5.262l4.781 4.781-1.414 1.414-4.781-4.781A8.5 8.5 0 0 1 1.75 10.25z'/%3E%3C/svg%3E");
 }
 
 /* Vars on iPad, landscape */
@@ -253,6 +269,7 @@ body.theme-elephant-light.layout-multiple-columns {
 @media (max-width: 500px) {
   :root {
     --font-size-heading: 17px;
+    --badges-distance-from-edge: 10px;
   }
 
   /* Hide scrollbar on mobile, since we can't pick the handle anyway */
@@ -295,10 +312,24 @@ body.layout-multiple-columns {
   color: var(--color-fg);
 }
 
+/* Link color variants */
+.layout-multiple-columns .status-link.hashtag {
+  color: var(--color-hashtag);
+}
+
+.layout-multiple-columns .status-link.mention:not(.hashtag) {
+  color: var(--color-mention);
+}
+
+/* stylelint-disable-next-line */
+.layout-multiple-columns .status-link.mention:not(.hashtag):not(.mention) {
+  color: var(--color-link);
+}
+
 /* Logo */
 .layout-multiple-columns .ui__header__logo,
 .layout-multiple-columns .column-link.column-link--logo {
-  background-image: url('data:image/svg+xml, %3Csvg class="mastodon-logo" xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 216.4144 232.00976"%3E%3Cdefs xmlns="http://www.w3.org/2000/svg"%3E%3ClinearGradient xmlns="http://www.w3.org/2000/svg" id="gradient" x2="0%25" y2="100%25" gradientUnits="userSpaceOnUse"%3E%3Cstop offset="0%25" stop-color="%23595aff"%3E%3C/stop%3E%3Cstop offset="100%25" stop-color="%23595aff"%3E%3C/stop%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath xmlns="http://www.w3.org/2000/svg" d="M211.80734 139.0875c-3.18125 16.36625-28.4925 34.2775-57.5625 37.74875-15.15875 1.80875-30.08375 3.47125-45.99875 2.74125-26.0275-1.1925-46.565-6.2125-46.565-6.2125 0 2.53375.15625 4.94625.46875 7.2025 3.38375 25.68625 25.47 27.225 46.39125 27.9425 21.11625.7225 39.91875-5.20625 39.91875-5.20625l.8675 19.09s-14.77 7.93125-41.08125 9.39c-14.50875.7975-32.52375-.365-53.50625-5.91875C9.23234 213.82 1.40609 165.31125.20859 116.09125c-.365-14.61375-.14-28.39375-.14-39.91875 0-50.33 32.97625-65.0825 32.97625-65.0825C49.67234 3.45375 78.20359.2425 107.86484 0h.72875c29.66125.2425 58.21125 3.45375 74.8375 11.09 0 0 32.975 14.7525 32.975 65.0825 0 0 .41375 37.13375-4.59875 62.915" fill="url(%23gradient)"%3E%3C/path%3E%3Cpath d="M177.50984 80.077v60.94125h-24.14375v-59.15c0-12.46875-5.24625-18.7975-15.74-18.7975-11.6025 0-17.4175 7.5075-17.4175 22.3525v32.37625H96.20734V85.42325c0-14.845-5.81625-22.3525-17.41875-22.3525-10.49375 0-15.74 6.32875-15.74 18.7975v59.15H38.90484V80.077c0-12.455 3.17125-22.3525 9.54125-29.675 6.56875-7.3225 15.17125-11.07625 25.85-11.07625 12.355 0 21.71125 4.74875 27.8975 14.2475l6.01375 10.08125 6.015-10.08125c6.185-9.49875 15.54125-14.2475 27.8975-14.2475 10.6775 0 19.28 3.75375 25.85 11.07625 6.36875 7.3225 9.54 17.22 9.54 29.675" fill="%23fff"%3E%3C/path%3E%3C/svg%3E');
+  background-image: var(--logo);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 32px auto;
@@ -311,12 +342,41 @@ body.layout-multiple-columns {
   display: none;
 }
 
-/* Things that should have default font-size */
+/* Things that should have the default font-size */
+.layout-multiple-columns .notification__message,
+.layout-multiple-columns .account__header__tabs__name h1 small,
+.layout-multiple-columns .button,
+.layout-multiple-columns .status__content__read-more-button,
+.layout-multiple-columns .status__prepend,
+.layout-multiple-columns .status__info,
+.layout-multiple-columns .status__relative-time,
+.layout-multiple-columns .status__info .status__display-name,
 .layout-multiple-columns .account__section-headline a,
 .layout-multiple-columns .account__section-headline button,
 .layout-multiple-columns .notification__filter-bar a,
 .layout-multiple-columns .notification__filter-bar button {
   font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+/* Things that should have the mid font-size */
+.layout-multiple-columns .account__header__extra__links,
+.layout-multiple-columns .account__header__account-note textarea,
+.layout-multiple-columns .account__header__content,
+.layout-multiple-columns .compose-form .autosuggest-textarea__textarea,
+.layout-multiple-columns .compose-form .spoiler-input__input {
+  font-size: var(--font-size-mid);
+  line-height: var(--line-height-mid);
+}
+
+/* Exceptions */
+.layout-multiple-columns .account__header__content {
+  line-height: 18px;
+}
+
+/* Things that will have even smaller font size */
+.layout-multiple-columns .account__header__account-note label {
+  font-size: var(--font-size-12);
 }
 
 /* Modal overlay */
@@ -450,7 +510,7 @@ body.layout-multiple-columns {
 .layout-multiple-columns a.status-card,
 .layout-multiple-columns a.status-card.compact {
   background-color: var(--color-bg);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   display: block;
 }
 
@@ -481,7 +541,7 @@ body.layout-multiple-columns {
 a.status-card .status-card__host,
 a.status-card.compact .status-card__host {
   color: var(--color-dim);
-  font-size: 14px;
+  font-size: var(--font-size-mid);
   margin-bottom: 5px;
   margin-top: 0;
 }
@@ -588,6 +648,12 @@ a.status-card.compact .status-card__host {
 .layout-multiple-columns .compose-form .compose-form__warning {
   background-color: var(--color-light-purple);
   color: var(--color-bg);
+}
+
+/* Content warning placeholder */
+.layout-multiple-columns .compose-form .autosuggest-textarea__textarea::placeholder,
+.layout-multiple-columns .compose-form .spoiler-input__input::placeholder {
+  color: var(--color-dim);
 }
 
 /* Border colors */
@@ -733,7 +799,7 @@ body.embed .status__content a,
 .layout-multiple-columns .language-dropdown__dropdown__results__item.active,
 .layout-multiple-columns .icon-with-badge__badge,
 .layout-multiple-columns .button {
-  background-color: var(--color-accent);
+  background-color: var(--color-accent-dark);
 }
 
 .layout-multiple-columns .block-modal__cancel-button,
@@ -771,10 +837,15 @@ body.embed .status__content a,
 }
 
 /* Mud background colors */
-.layout-multiple-columns .language-dropdown__dropdown__results__item:hover,
-.layout-multiple-columns .language-dropdown__dropdown__results__item:focus,
 .layout-multiple-columns .reply-indicator {
   background-color: var(--color-mud);
+  color: var(--color-light-text);
+}
+
+/* Dropdown hovers */
+.layout-multiple-columns .language-dropdown__dropdown__results__item:hover,
+.layout-multiple-columns .language-dropdown__dropdown__results__item:focus {
+  background-color: var(--color-accent-dark-50);
   color: var(--color-light-text);
 }
 
@@ -798,6 +869,16 @@ body.embed .status__content a,
 }
 
 /* Things like notification status update text that should be dim */
+/* stylelint-disable-next-line selector-not-notation */
+.layout-multiple-columns .notification .status-link.mention:not(.hashtag):not(.mention),
+.layout-multiple-columns .notification .status-link.hashtag,
+.layout-multiple-columns .notification .status-link.mention:not(.hashtag),
+.layout-multiple-columns .compose-form .autosuggest-textarea__textarea::placeholder,
+.layout-multiple-columns .compose-form .icon-button,
+.layout-multiple-columns .compose-form .spoiler-input__input::placeholder,
+.layout-multiple-columns .compose-form__poll-wrapper .button.button-secondary,
+.layout-multiple-columns .language-dropdown__dropdown__results__item__common-name,
+.layout-multiple-columns .report-dialog-modal__textarea::placeholder,
 .layout-multiple-columns .poll__link,
 .layout-multiple-columns .muted .poll,
 .layout-multiple-columns .status .status__relative-time,
@@ -1249,6 +1330,7 @@ body.embed .detailed-status,
 /* Detailed status update */
 .layout-multiple-columns .detailed-status .status__content {
   font-size: var(--font-size-bigger);
+  line-height: 1.4;
 }
 
 body.embed .detailed-status__meta,
@@ -1311,6 +1393,30 @@ body.embed .detailed-status__meta .detailed-status__link .fa-retweet,
 /* Icon buttons */
 .layout-multiple-columns .icon-button {
   color: var(--color-dim);
+}
+
+/* Hide/Show media button */
+.layout-multiple-columns .spoiler-button.spoiler-button--minified > button {
+  background-color: var(--color-bg);
+  border-radius: var(--border-radius-badges);
+  color: var(--color-ghost-button-text);
+  opacity: .5;
+}
+
+/* Alt badge */
+.layout-multiple-columns .media-gallery__item__badges > span {
+  border-radius: var(--border-radius-badges);
+}
+
+/* Distance from the edge */
+.layout-multiple-columns .spoiler-button--minified {
+  inset-inline-start: var(--badges-distance-from-edge);
+  top: var(--badges-distance-from-edge);
+}
+
+.layout-multiple-columns .media-gallery__gifv__label {
+  bottom: var(--badges-distance-from-edge);
+  inset-inline-start: var(--badges-distance-from-edge);
 }
 
 .layout-multiple-columns .icon-button:hover {
@@ -1843,7 +1949,8 @@ body.embed .detailed-status__meta .detailed-status__link .fa-retweet,
 
 /* Search */
 .layout-multiple-columns .search .search__icon .fa-search {
-  background-image: url('data:image/svg+xml, %3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" fill="%23717c9b"%3E%3Cg%3E%3Cpath d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"%3E%3C/path%3E%3C/g%3E%3C/svg%3E');
+  background-color: var(--color-mud);
+  background-image: var(--icon-search);
   background-position: center;
   background-repeat: no-repeat;
   background-size: 20px;
@@ -2137,7 +2244,7 @@ body.embed .button.logo-button:hover,
 
 /* Misc UI fixes */
 .layout-multiple-columns .search__icon .fa.active {
-  opacity: .6;
+  opacity: 1;
 }
 
 /* Explore -> For you shade in bio */
@@ -2931,6 +3038,10 @@ body.embed .button.logo-button:hover,
     font-size: 24px;
   }
 
+  .columns-area__panels__pane--navigational .column-link__icon.fa-fw {
+    font-size: 22px;
+  }
+
   .columns-area__panels__pane--navigational .column-link__icon.fa-star,
   .columns-area__panels__pane--navigational .column-link__icon.fa-bookmark,
   .columns-area__panels__pane--navigational .column-link__icon.fa-bell {
@@ -3084,13 +3195,14 @@ body.embed .button.logo-button:hover,
 }
 
 /* Add border radius to media */
-.layout-multiple-columns .media-gallery__item-thumbnail img,
+.layout-multiple-columns .media-gallery,
 .layout-multiple-columns .audio-player,
-.layout-multiple-columns .video-player video,
-.layout-multiple-columns .media-gallery__gifv video,
+.layout-multiple-columns .video-player,
+.layout-multiple-columns .media-gallery__gifv,
 .layout-multiple-columns .media-gallery__preview {
-  backface-visibility: hidden;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
+  outline: 1px solid var(--color-border);
+  overflow: hidden;
 }
 
 .layout-multiple-columns .media-gallery__item-thumbnail:has(> img:not([alt]))::after,
